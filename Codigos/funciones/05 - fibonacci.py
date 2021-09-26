@@ -42,20 +42,39 @@ def fibonacci2(num): # Aporte de Diego Ortiz
             print(str(arr).replace('[', '').replace(']', ''))
 
 
-def fibonacci_recursiva(num_elemtos):
+#### Solución de Diego Ortiz a Fibo_recursiva_lista_elementos
+def rec_fib(n):
+    if n > 1:
+        return rec_fib(n-1) + rec_fib(n-2)
+    return n
+
+
+def fibonacci_recursiva(num_elemtos, lista = [1, 1]):
+    sucesion = lista
     if (num_elemtos == 1):
-        return 1
+        return 1, sucesion
 
     if (num_elemtos == 2):
-        return 1
+        return 1, sucesion
 
-    result_num = (fibonacci_recursiva(num_elemtos - 1) + fibonacci_recursiva(num_elemtos - 2))
-    return result_num
+    termin1 = fibonacci_recursiva(num_elemtos - 1, sucesion)
+    termin2 = fibonacci_recursiva(num_elemtos - 2, sucesion)
+
+    result_num = termin1[0] + termin2[0]
+    if result_num not in sucesion:
+        sucesion.append(result_num)
+        
+    return result_num, sucesion
 
 
 if __name__ == '__main__':
     print(fibonacci(10))
     fibonacci2(10)
-    print(fibonacci_recursiva(10))
+    print(str(fibonacci_recursiva(10)[1]).replace('[', '').replace(']', ''))
 
-
+    #Solución Diego Ortiz
+    for i in range(1, 11):
+        if i == 10:
+            print(rec_fib(i), end= '')
+            continue
+        print(rec_fib(i), end= ', ')
